@@ -1,0 +1,33 @@
+<form nz-form [formGroup]="newQuestionForm" class="new-question-container">
+  <nz-form-item>
+    <nz-form-control [nzSpan]="24">
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select question type" formControlName="questionType" (ngModelChange)="changeQuestionType($event)">
+        <nz-option nzLabel="Checkbox List" [nzValue]="QuestionType.CHECKBOX_LIST"></nz-option>
+        <nz-option nzLabel="Paragraph" [nzValue]="QuestionType.PARAGRAPH"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="24">
+      <input nz-input placeholder="Type question here" formControlName="question" />
+    </nz-form-control>
+  </nz-form-item>
+  <ng-container *ngIf="newQuestionForm.get('questionType')?.value === QuestionType.CHECKBOX_LIST">
+    <ng-container formArrayName="answerOptions">
+      <nz-form-item *ngFor="let optionControl of answerOptions?.controls; let index = index">
+        <nz-form-control [nzSpan]="24" [formGroupName]="index">
+          <input nz-input placeholder="Add Answer Option" formControlName="option" />
+        </nz-form-control>
+      </nz-form-item >
+    </ng-container>
+    <nz-form-item>
+      <nz-form-control [nzSpan]="24">
+        <a [disabled]="newQuestionForm.get('answerOptions')?.invalid"
+           (click)="addAnswerOption()"
+           nz-button nzType="link">
+          + Add another answer
+        </a>
+      </nz-form-control>
+    </nz-form-item >
+  </ng-container>
+</form>

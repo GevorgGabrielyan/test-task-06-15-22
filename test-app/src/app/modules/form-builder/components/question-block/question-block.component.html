@@ -1,0 +1,26 @@
+<div class="question-item" *ngIf="item">
+  <ng-container [ngSwitch]="item.questionType">
+    <div *ngSwitchCase="QuestionType.PARAGRAPH">
+      <h3>{{ item.question }}</h3>
+      <div class="content">
+        <textarea nz-input
+                  placeholder="Autosize height based on content lines"
+                  [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+                  [(ngModel)]="paragraphAnswer"
+                  (ngModelChange)="paragraphAnswerChange.emit($event)"></textarea>
+      </div>
+    </div>
+    <div *ngSwitchCase="QuestionType.CHECKBOX_LIST">
+      <h3>{{ item.question }}</h3>
+      <div class="content">
+        <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="selectData($event)">
+          <div nz-row>
+            <div nz-col nzSpan="24" *ngFor="let answer of item.answerOptions">
+              <label nz-checkbox [nzValue]="answer.option" [ngModel]="selectedOptions.includes(answer.option)">{{ answer.option }}</label>
+            </div>
+          </div>
+        </nz-checkbox-wrapper>
+      </div>
+    </div>
+  </ng-container>
+</div>

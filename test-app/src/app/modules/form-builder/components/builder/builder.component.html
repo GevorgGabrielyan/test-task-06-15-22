@@ -1,0 +1,22 @@
+<div nz-col nzSpan="24">
+  <div nz-row nzJustify="center" class="builder-container" *ngIf="!questions.length else questionBlock">
+    <button nz-button nzType="primary" (click)="addNewQuestionModal()">Add Question</button>
+  </div>
+  <ng-template #questionBlock>
+    <div class="question-block">
+      <app-question-block *ngFor="let item of questions; let index=index"
+                          [item]="item"
+                          (optionSelect)="optionSelect($event, index)"
+                          (paragraphAnswerChange)="paragraphAnswerChange($event, index)">
+      </app-question-block>
+      <div class="actions">
+        <a (click)="addNewQuestionModal()"
+           nz-button nzType="link">
+          Add New Question
+        </a>
+
+        <button nz-button nzType="primary" routerLink="/form/answers">Review my answers ></button>
+      </div>
+    </div>
+  </ng-template>
+</div>
