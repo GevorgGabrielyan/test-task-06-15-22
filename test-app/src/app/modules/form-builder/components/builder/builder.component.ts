@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NzModalService} from "ng-zorro-antd/modal";
 import {NewQuestionComponent} from "../new-question/new-question.component";
 import {IQuestion} from "../interfaces/IQuestion";
 import {IAnswer} from "../interfaces/IAnswer";
 import {FormBuilderService} from "../form-builder.service";
+import {QuestionType} from "../enums/QuestionType";
 
 @Component({
   selector: 'app-builder',
@@ -30,7 +31,11 @@ export class BuilderComponent {
           label: 'Submit',
           disabled: contentComponentInstance => !!contentComponentInstance?.newQuestionForm.invalid,
           onClick: (contentComponentInstance) => {
-            const data: IQuestion = contentComponentInstance?.newQuestionForm.value;
+            const data: IQuestion = { ...contentComponentInstance?.newQuestionForm.value };
+            const otherOption = data.answerOptions?.find(item => item.option === 'Other')
+            if (data.questionType === QuestionType.CHECKBOX_LIST && !otherOption) {
+              data.answerOptions.push({ option: 'Other' })
+            }
             this.questions.push(data)
             this.answers = this.questions.map(item => {
               return {
