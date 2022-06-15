@@ -1,8 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {QuestionType} from "../enums/QuestionType";
-import {IAnswer} from "../interfaces/IAnswer";
-import {FormBuilderService} from "../form-builder.service";
 import {Subject, takeUntil} from "rxjs";
+import {IAnswer} from "../interfaces/IAnswer";
+import {QuestionType} from "../enums/QuestionType";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilderService} from "../form-builder.service";
 
 @Component({
   selector: 'app-answers',
