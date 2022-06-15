@@ -53,7 +53,9 @@ export class BuilderComponent {
 
   public optionSelect(options: string[], index: number) {
     this.answers[index].answerOptions = options;
-    this.formBuilderService.selectAnswers(this.answers);
+    const answers = [...this.answers]
+    answers[index].answerOptions = answers[index].answerOptions?.filter(item => item !== 'Other')
+    this.formBuilderService.selectAnswers(answers);
   }
 
   public paragraphAnswerChange(options: string, index: number) {
