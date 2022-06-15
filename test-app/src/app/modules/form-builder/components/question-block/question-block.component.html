@@ -4,7 +4,6 @@
       <h3>{{ item.question }}</h3>
       <div class="content">
         <textarea nz-input
-                  placeholder="Autosize height based on content lines"
                   [nzAutosize]="{ minRows: 3, maxRows: 5 }"
                   [(ngModel)]="paragraphAnswer"
                   (ngModelChange)="paragraphAnswerChange.emit($event)"></textarea>
@@ -20,6 +19,7 @@
             </div>
           </div>
         </nz-checkbox-wrapper>
+        <input style="margin-top: 10px" nz-input placeholder="Type here" *ngIf="selectedOptions.includes('Other')" [(ngModel)]="other" (ngModelChange)="otherOptionSelect($event)"/>
       </div>
     </div>
   </ng-container>
